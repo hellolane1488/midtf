@@ -1,0 +1,8 @@
+net-tools
+glxinfo
+perl
+cpupower
+awk
+grep
+sed
+java-runtime

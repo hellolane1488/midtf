@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# If you don't know what this file is, don't touch it.
+
+if [ "$1" = "rm" ]; then
+  sudo rm -rf /usr/share/MIDTF
+  sudo rm -rf /usr/bin/midtf
+  echo midtf uninstalled successfully
+  exit 1
+fi
+
+INSTALLATION/install_dependencies.sh
+INSTALLATION/build.sh
+
+mkdir ~/MIDTF && mkdir ~/MIDTF/src && mkdir ~/MIDTF/src/main && mkdir ~/MIDTF/src/main/kotlin && mkdir ~/MIDTF/src/main/kotlin/os # laziness
+sudo mv ~/MIDTF /usr/share
+sudo cp build/libs/*.jar /usr/share/MIDTF
+sudo chmod +x /usr/share/MIDTF/*.jar
+sudo cp -r src/main/kotlin/os/*.sh /usr/share/MIDTF/src/main/kotlin/os
+sudo chmod +x /usr/share/MIDTF/src/main/kotlin/os/*.sh
+sudo cp INSTALLATION/midtf /usr/bin/
+sudo chmod +x /usr/bin/midtf
+echo export "$PATH":/usr/share/MIDTF/midtf >> .bashrc

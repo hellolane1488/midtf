@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# If you don't know what this file is, don't touch it.
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+  echo midtf - command line tool showing detailed operating system information
+  echo
+  echo The following options are available:
+  echo -e "\033[1m-rm or --uninstall\033[0m"
+  printf "\t completely removes the midtf utility from your machine"
+  exit 1
+
+elif [ "$1" = "-rm" ] || [ "$1" = "--uninstall" ]; then
+  sudo rm -rf /usr/share/MIDTF
+  sudo rm -rf /usr/bin/midtf
+  echo midtf uninstalled successfully
+  exit 1
+fi
+
+
+java -jar /usr/share/MIDTF/*.jar
