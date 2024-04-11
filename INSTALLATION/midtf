@@ -2,20 +2,31 @@
 
 # If you don't know what this file is, don't touch it.
 
-if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+help() {
   echo midtf - command line tool showing detailed operating system information
+  echo
+  echo Run: "midtf"
   echo
   echo The following options are available:
   echo -e "\033[1m-rm or --uninstall\033[0m"
   printf "\t completely removes the midtf utility from your machine"
+  echo
+  echo -e "\033[1m-a or --all\033[0m"
+  printf "\t will display additional information on the screen, such as the name of the cursor, the name of the font, and so on"
   exit 1
+}
 
-elif [ "$1" = "-rm" ] || [ "$1" = "--uninstall" ]; then
-  sudo rm -rf /usr/share/MIDTF
-  sudo rm -rf /usr/bin/midtf
-  echo midtf uninstalled successfully
-  exit 1
-fi
+while [[ $# -gt 0 ]]; do
+  key="$1"
 
-
-java -jar /usr/share/MIDTF/*.jar
+  case $key in
+  "-h"|"--help") help ;;
+  "-rm"|"--uninstall")
+    sudo rm -rf /usr/share/MIDTF
+    sudo rm -rf /usr/bin/midtf
+    echo midtf uninstalled successfully
+    exit 1
+    ;;
+  *) java -jar /usr/share/MIDTF/*.jar; exit 1 ;;
+  esac
+done
