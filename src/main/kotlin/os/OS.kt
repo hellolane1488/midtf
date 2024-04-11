@@ -8,8 +8,8 @@ class OS {
     private val runtime: Runtime = Runtime.getRuntime()
     /* initialization by an instance of a class, what else can I say? */
 
-    private val path: Process = runtime.exec(arrayOf("pwd"))
-    private val pwd = String(path.inputStream.readAllBytes(), Charsets.UTF_8).split("\n")[0]
+//    private val path: Process = runtime.exec(arrayOf("pwd"))
+//    private val pwd = String(path.inputStream.readAllBytes(), Charsets.UTF_8).split("\n")[0]
     /* get path to root of this program */
 
 
@@ -39,7 +39,7 @@ class OS {
         /* Using a lambda, we extract from a string a substring containing “Mem:” */
 
         val totalMemory = totalMemoryLine?.split(Regex("\\s+"))?.get(1)?.toIntOrNull() ?: 0
-        val usedMemory = usedMemoryLine?.split(Regex("\\s+"))?.get(5)?.toIntOrNull() ?: 0
+        val usedMemory = usedMemoryLine?.split(Regex("\\s+"))?.get(2)?.toIntOrNull() ?: 0
         /* get an element that is converted to Integer if all is well */
 
         return "${usedMemory}MiB / ${totalMemory}MiB"
@@ -82,7 +82,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/getHostname.sh"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/getHostname.sh"
             /* adding the full path to call this script correctly  */
         ))
     }
@@ -107,7 +107,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regComponentInfo.sh cpu"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regComponentInfo.sh cpu"
         ))
     }
 
@@ -115,7 +115,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regComponentInfo.sh gpuName | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regComponentInfo.sh gpuName | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -123,7 +123,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regComponentInfo.sh gpu"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regComponentInfo.sh gpu"
         ))
     }
 
@@ -131,7 +131,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regComponentInfo.sh motherboardName | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regComponentInfo.sh motherboardName | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -139,7 +139,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regComponentInfo.sh HDName"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regComponentInfo.sh HDName"
         ))
     }
 
@@ -147,7 +147,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh shell | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh shell | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -155,7 +155,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh de | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh de | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -163,7 +163,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh wm | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh wm | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -171,7 +171,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh wmTheme | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh wmTheme | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -179,7 +179,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh gtkTheme | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh gtkTheme | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -187,7 +187,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh gtkIcon | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh gtkIcon | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -195,7 +195,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh font | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh font | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
@@ -203,7 +203,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "bash $pwd/src/main/kotlin/os/regTERMInfo.sh cursor | perl -pe 's/^\\s+|\\s+\$//g'"
+            "bash /usr/share/MIDTF/src/main/kotlin/os/regTERMInfo.sh cursor | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 
