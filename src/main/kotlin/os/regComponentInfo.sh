@@ -36,8 +36,13 @@ get_CPU_info() {
   # get the Virtualization and del <TAB's>
 
   printf "\t\t  \u001b[34mTemperature:\u001b[0m "
-  sensors | grep -E "^(Core|temp)" | awk '{print $2}' | head -n 1
+  temp=$(sensors | grep -E "^(Core|temp)" | awk '{print $2}' | head -n 1)
   # get the latest processor temperature by key string Core or temp
+  if [ "$temp" = "" ]; then
+    printf "Not found\n"
+  else
+    printf '%s' "$temp\n"
+  fi
 }
 
 get_GPU_info() {
