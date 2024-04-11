@@ -16,10 +16,7 @@ help() {
   exit 1
 }
 
-while [[ $# -gt 0 ]]; do
-  key="$1"
-
-  case $key in
+case $1 in
   "-h"|"--help") help ;;
   "-rm"|"--uninstall")
     sudo rm -rf /usr/share/MIDTF
@@ -28,5 +25,4 @@ while [[ $# -gt 0 ]]; do
     exit 1
     ;;
   *) java -jar /usr/share/MIDTF/*.jar; exit 1 ;;
-  esac
-done
+esac
