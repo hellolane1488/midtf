@@ -3,7 +3,6 @@ xfconf
 lm_sensors
 net-tools
 glxinfo
-perl
 cpupower
 awk
 grep
