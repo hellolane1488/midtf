@@ -1,3 +1,4 @@
+lm_sensors
 net-tools
 glxinfo
 perl
