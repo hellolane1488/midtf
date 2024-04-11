@@ -2,11 +2,15 @@
 
 # Install:
 ```shell
-git clone https://github.com/midvetb/midtf.git
-cd midtf && ./install
-midtf
+# cloning repo
+$ git clone https://github.com/midvetb/midtf.git
+# go to the repo and install
+$ cd midtf && ./install
+# run the tool
+$ midtf
 ```
 # Uninstall:
 ```shell
-midtf --uninstall
+# uninstall the tool
+$ midtf --uninstall
 ```
