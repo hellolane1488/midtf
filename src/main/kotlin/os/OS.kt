@@ -91,7 +91,7 @@ class OS {
         return executeCommand(arrayOf(
             "/bin/bash",
             "-c",
-            "lscpu | grep 'Model name' | awk -F ':' '{print $2}' | sed -e 's/^[ \t]*//' | perl -pe 's/^\\s+|\\s+\$//g'"
+            "lscpu -p=MODELNAME | awk -F ':' '{print $2}' | sed -e 's/^[ \t]*//' | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
 

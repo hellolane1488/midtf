@@ -9,6 +9,8 @@ if [ "$1" = "rm" ]; then
   exit 1
 fi
 
+sudo rm -rf /usr/share/MIDTF /usr/bin/midtf
+
 INSTALLATION/install_dependencies.sh
 INSTALLATION/build.sh
 
