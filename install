@@ -20,4 +20,3 @@ sudo cp -r src/main/kotlin/os/*.sh /usr/share/MIDTF/src/main/kotlin/os
 sudo chmod +x /usr/share/MIDTF/src/main/kotlin/os/*.sh
 sudo cp INSTALLATION/midtf /usr/bin/
 sudo chmod +x /usr/bin/midtf
-echo export "$PATH":/usr/share/MIDTF/midtf >> .bashrc
