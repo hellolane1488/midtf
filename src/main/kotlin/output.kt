@@ -5,7 +5,7 @@ import mid.vet.extensions.green
 import mid.vet.extensions.purple
 import mid.vet.os.*
 
-fun output() {
+fun outputInformation() {
     val os = OS()
 
     val out = buildString {
@@ -15,8 +15,6 @@ fun output() {
         append("\tOS: ".purple() + "${OSInfo.osName} ${os.getArchitecture()}\n")
         append("\tDistro: ".purple() + "${os.getDistro()}\n")
         append("\tKernel: ".purple() + "${OSInfo.osVersion}\n")
-        append("\tMachine Uptime: ".purple() + "${os.getUptime()}\n")
-        append("\tMachine launch in ".purple() + "${os.getLaunchTime()}\n")
         append("\tShell: ".purple() + "${os.getShell()}\n")
         append("\tFont: ".purple() + "${os.getFont()}\n")
         append("\tCursor: ".purple() + "${os.getCursor()}\n")
@@ -25,6 +23,8 @@ fun output() {
         append("\tWM Theme: ".purple() + "${os.getWMTheme()}\n")
         append("\tGTK Theme: ".purple() + "${os.getGTKTheme()}\n")
         append("\tGTK Icon: ".purple() + "${os.getGTKIconTheme()}\n")
+        append("\tMachine Uptime: ".purple() + "${os.getUptime()}\n")
+        append("\tMachine launch in ".purple() + "${os.getLaunchTime()}\n")
         append("\tCPU: ".purple() + "${os.getCPU()} @ ${os.getCPUFrequency()}\n")
         append("\t\tAbout CPU ->\n".blue())
         append("\t\t  ${os.getInfoAboutCPU()}")
