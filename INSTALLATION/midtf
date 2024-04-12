@@ -27,6 +27,6 @@ case $1 in
     ;;
   "-d"|"--detail")
     # shellcheck disable=SC2216
-    java -jar /usr/share/MIDTF/*.jar | grep -i "$2" | head -n 1; exit 1 ;;
+    java -jar /usr/share/MIDTF/*.jar | grep -i $2 | head -n 1; exit 1 ;;
   *) java -jar /usr/share/MIDTF/*.jar; exit 1 ;;
 esac
