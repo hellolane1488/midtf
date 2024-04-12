@@ -2,23 +2,8 @@
 
 # If you don't know what this file is, don't touch it.
 
-help() {
-  echo midtf - command line tool showing detailed operating system information
-  echo
-  echo Run: "midtf"
-  echo
-  echo The following options are available:
-  echo -e "\033[1m-rm or --uninstall\033[0m"
-  printf "\t \033[1mcompletely removes the midtf utility from your machine\033[0m"
-  echo; echo
-  echo -e "\033[1m-d or --detail\033[0m"
-  printf "\t \033[1mwill display only information about the part that is specified\033[0m\n"
-  printf "\t Usage: midtf -d Shell"
-  exit 1
-}
-
 case $1 in
-  "-h"|"--help") help ;;
+  "-h"|"--help") echo Run: "man midtf" ;;
   "-rm"|"--uninstall")
     sudo rm -rf /usr/share/MIDTF
     sudo rm -rf /usr/bin/midtf
