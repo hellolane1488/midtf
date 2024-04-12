@@ -9,8 +9,11 @@ help() {
   echo
   echo The following options are available:
   echo -e "\033[1m-rm or --uninstall\033[0m"
-  printf "\t completely removes the midtf utility from your machine"
-  echo
+  printf "\t \033[1mcompletely removes the midtf utility from your machine\033[0m"
+  echo; echo
+  echo -e "\033[1m-d or --detail\033[0m"
+  printf "\t \033[1mwill display only information about the part that is specified\033[0m\n"
+  printf "\t Usage: midtf -d Shell"
   exit 1
 }
 
@@ -22,5 +25,8 @@ case $1 in
     echo midtf uninstalled successfully
     exit 1
     ;;
+  "-d"|"--detail")
+    # shellcheck disable=SC2216
+    java -jar /usr/share/MIDTF/*.jar | grep -i "$2" | head -n 1; exit 1 ;;
   *) java -jar /usr/share/MIDTF/*.jar; exit 1 ;;
 esac
