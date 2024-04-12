@@ -5,6 +5,7 @@
 if [ "$1" = "rm" ]; then
   sudo rm -rf /usr/share/MIDTF
   sudo rm -rf /usr/bin/midtf
+  sudo rm -rf /usr/share/man/man1/midtf.1*
   echo midtf uninstalled successfully
   exit 1
 fi
@@ -16,7 +17,12 @@ INSTALLATION/build.sh
 
 mkdir ~/MIDTF
 sudo mv ~/MIDTF /usr/share
+
 sudo cp build/libs/*.jar /usr/share/MIDTF
-sudo chmod +x /usr/share/MIDTF/*.jar
 sudo cp INSTALLATION/midtf /usr/bin/
+sudo cp INSTALLATION/midtf.1 /usr/share/man/man1/
+
+sudo gzip /usr/share/man/man1/midtf.1
+
 sudo chmod +x /usr/bin/midtf
+sudo chmod +x /usr/share/MIDTF/*.jar
