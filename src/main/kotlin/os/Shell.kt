@@ -1,8 +1,5 @@
 package mid.vet.os
 
-import java.awt.Scrollbar
-import java.util.stream.Stream
-
 class Shell {
     private val runtime: Runtime = Runtime.getRuntime()
 
