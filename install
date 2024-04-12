@@ -2,15 +2,7 @@
 
 # If you don't know what this file is, don't touch it.
 
-if [ "$1" = "rm" ]; then
-  sudo rm -rf /usr/share/MIDTF
-  sudo rm -rf /usr/bin/midtf
-  sudo rm -rf /usr/share/man/man1/midtf.1*
-  echo midtf uninstalled successfully
-  exit 1
-fi
-
-sudo rm -rf /usr/share/MIDTF /usr/bin/midtf
+sudo rm -rf /usr/share/MIDTF /usr/bin/midtf /usr/share/man/man1/midtf.* ~/MIDTF
 
 INSTALLATION/install_dependencies.sh
 INSTALLATION/build.sh
