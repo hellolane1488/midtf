@@ -16,8 +16,8 @@ The tool will allow you to find out the necessary information about the operatin
 $ git clone https://github.com/midvetb/midtf.git
 # go to the repo and install
 $ cd midtf && ./install
-# run the tool
-$ midtf
+# auxiliary function
+$ midtf --help
 ```
 # Uninstall:
 ```shell
