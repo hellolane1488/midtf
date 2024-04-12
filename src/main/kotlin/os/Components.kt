@@ -72,10 +72,6 @@ class Components {
             "sensors | grep -E \"^(Core|temp)\" | awk '{print $2}' | head -n 1"
         ))
 
-        temp.ifEmpty {
-            return "Not found"
-        }
-
         return temp
     }
     /* ---CPU--- */
@@ -85,7 +81,7 @@ class Components {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "lspci | grep -i vga | awk -F '[' '{print $2}' | awk -F ']' '{print $1}'"
+            "lspci | grep -i 'vga compatible controller' | awk -F ': ' '{split($2, a, \"[][]\"); print a[length(a)-1]}' | awk -F '/' '{print $1}'"
         ))
     }
 
@@ -93,7 +89,7 @@ class Components {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "lspci -vnn | grep -i VGA -A 4 | awk -F 'Subsystem:' '{print $2}' | awk -F '[' '{print $1}'"
+            "lspci | grep -i 'vga compatible controller' | sed 's/.*: \\(.*\\)/\\1/' | sed 's/\\[.*//'"
         ))
     }
 
