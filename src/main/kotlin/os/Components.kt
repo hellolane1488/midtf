@@ -69,7 +69,7 @@ class Components {
         val temp = executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "sensors | grep -E \"^(Core|temp)\" | awk '{print $2}' | head -n 1"
+            "sensors | grep -iE \"^(tctl|core|temp)\" | awk '{print $2}' | head -n 1"
         ))
 
         return temp
