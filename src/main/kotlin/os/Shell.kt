@@ -6,9 +6,13 @@ class Shell {
     private val wm = executeCommand(runtime, arrayOf(
         "/bin/bash",
         "-c",
-        "export wm=$(ps -e | grep -Eo 'xfwm4|mutter|kwin|openbox'); echo \$wm"
+        "ps aux | grep -Eo 'xfwm4|mutter|kwin|openbox|enlightenment|lxqt|mate' | head -n 1"
     ))
-    /* get WM Name */
+    private val gtkPath = executeCommand(runtime, arrayOf(
+        "/bin/bash",
+        "-c",
+        "echo \$GTK2_RC_FILES"
+    ))
 
     fun getShell(): String {
         val shellName = executeCommand(runtime, arrayOf(
@@ -38,7 +42,9 @@ class Shell {
             "mutter" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "gsettings get org.gnome.desktop.wm.preferences theme"))
             "kwin" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "kreadconfig5 --file kwinrc --group WM --key theme"))
             "openbox" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "grep 'window_manager' ~/.config/lxsession/LXDE/desktop.conf | awk -F '=' '{print $2}'"))
-            else -> "Not found"
+            "enlightenment" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "enlightenment_remote -e 'window_manager'"))
+            "lxqt", "mate" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "xprop -root | grep -o '_NET_WM_NAME(UTF8_STRING) = \"[^\"]*\"' | cut -d'\"' -f2"))
+            else -> ""
         }
 
         return wmThemeName
@@ -48,11 +54,12 @@ class Shell {
         val gsettingsCommand = "gsettings get org.gnome.desktop.interface monospace-font-name | awk -F \"'\" '{print $2}'"
 
         val fontName = when (wm) {
-            "xfwm4" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", gsettingsCommand))
-            "mutter" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", gsettingsCommand))
-            "kwin" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", gsettingsCommand))
+            "xfwm4", "mutter", "kwin" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", gsettingsCommand))
             "openbox" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "grep 'font_name=' ~/.config/lxterminal/lxterminal.conf | cut -d= -f2 | tr -d ' '"))
-            else -> "Not found"
+            "enlightenment" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "enlightenment_remote -e 'font' "))
+            "lxqt" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "grep 'FontName' ~/.config/lxqt/globalkeyshortcuts.conf"))
+            "mate" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "gsettings get org.mate.interface font-name"))
+            else -> ""
         }
 
         return fontName
@@ -62,7 +69,7 @@ class Shell {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "xrdb -query | awk '/cursor.theme:/ {printf \"%s \", $2} /cursor.size:/ {gsub(\":\", \"\"); printf \"<%s>\\n\", $2}'"
+            "xrdb -query | awk '/cursor.theme:/ {printf $2} /cursor.size:/ {printf \", \" $2} END {printf \"\\n\"}'"
         ))
     }
 
@@ -70,28 +77,20 @@ class Shell {
         val themeGTK = executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "cat < ~/.config/gtk-3.0/settings.ini | grep 'gtk-theme-name' | awk -F '=' '{print $2}'"
+            "cat $gtkPath | grep 'gtk-theme-name' | awk -F '=\"' '{print $2 }' | awk -F '\"' '{print $1}'"
         ))
 
-        return if (themeGTK.isEmpty()) {
-            "Not found"
-        } else {
-            themeGTK
-        }
+        return themeGTK
     }
 
     fun getGTKIcon(): String {
         val iconGTK = executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "cat < ~/.config/gtk-3.0/settings.ini | grep 'gtk-icon-theme-name' | awk -F '=' '{print $2}'"
+            "cat $gtkPath | grep 'gtk-icon-theme-name' | awk -F '=\"' '{print $2 }' | awk -F '\"' '{print $1}'"
         ))
 
-        return if (iconGTK.isEmpty()) {
-            "Not found"
-        } else {
-            iconGTK
-        }
+        return iconGTK
     }
 
     fun getDEName(): String {
@@ -101,10 +100,6 @@ class Shell {
             "echo \"\$XDG_CURRENT_DESKTOP\""
         ))
 
-        return if (nameDE.isEmpty()) {
-            "Not found"
-        } else {
-            nameDE
-        }
+        return nameDE
     }
 }
