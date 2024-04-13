@@ -5,7 +5,7 @@ import mid.vet.extensions.green
 import mid.vet.extensions.purple
 import mid.vet.os.*
 
-fun outputInformation() {
+fun outputInformation(args: String) {
     val os = OS()
     val component = Components()
     val shell = Shell()
@@ -18,13 +18,17 @@ fun outputInformation() {
         appendLine("\tDistro: ".purple() + os.getDistro())
         appendLine("\tKernel: ".purple() + OSInfo.osVersion)
         appendLine("\tShell: ".purple() + shell.getShell())
-        appendLine("\tFont: ".purple() + shell.getFontName())
-        appendLine("\tCursor: ".purple() + shell.getCursor())
-        appendLine("\tDE: ".purple() + shell.getDEName())
-        appendLine("\tWM: ".purple() + shell.getWMName())
-        appendLine("\tWM Theme: ".purple() + shell.getWMTheme())
-        appendLine("\tGTK Theme: ".purple() + shell.getGTKTheme())
-        appendLine("\tGTK Icon: ".purple() + shell.getGTKIcon())
+
+        if ("all" in args) {
+            appendLine("\tFont: ".purple() + shell.getFontName())
+            appendLine("\tCursor: ".purple() + shell.getCursor())
+            appendLine("\tDE: ".purple() + shell.getDEName())
+            appendLine("\tWM: ".purple() + shell.getWMName())
+            appendLine("\tWM Theme: ".purple() + shell.getWMTheme())
+            appendLine("\tGTK Theme: ".purple() + shell.getGTKTheme())
+            appendLine("\tGTK Icon: ".purple() + shell.getGTKIcon())
+        }
+
         appendLine("\tMachine Uptime: ".purple() + os.getUptime())
         appendLine("\tMachine launch in ".purple() + os.getLaunchTime())
         appendLine("\tCPU: ".purple() + "${component.getCPU()} @ ${component.getCPUFrequency()}")

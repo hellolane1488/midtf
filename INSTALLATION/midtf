@@ -2,6 +2,14 @@
 
 # If you don't know what this file is, don't touch it.
 
+detail_arg_handler() {
+  if [ -z "$2" ]; then
+    echo "Error: Missing argument for option -d"
+    echo "Usage: midtf -d [ARG]"
+    exit 1
+  fi
+}
+
 case $1 in
   "-h"|"--help") echo Run: "man midtf" ;;
   "-rm"|"--uninstall")
@@ -11,7 +19,15 @@ case $1 in
     exit 1
     ;;
   "-d"|"--detail")
-    # shellcheck disable=SC2216
-    java -jar /usr/share/MIDTF/*.jar | grep -i $2 | head -n 1; exit 1 ;;
+    detail_arg_handler "$@"
+    java -jar /usr/share/MIDTF/*.jar | grep -i $2 | head -n 1
+    exit 1
+    ;;
+  "-a"|"--all") java -jar /usr/share/MIDTF/*.jar "--all"; exit 1 ;;
+  "-da"|"-ad")
+    detail_arg_handler "$@"
+    java -jar /usr/share/MIDTF/*.jar "--all" | grep -i $2 | head -n 1
+    exit 1
+    ;;
   *) java -jar /usr/share/MIDTF/*.jar; exit 1 ;;
 esac
