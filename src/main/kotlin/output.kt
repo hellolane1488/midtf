@@ -18,11 +18,11 @@ fun outputInformation(args: String) {
         appendLine("\tDistro: ".purple() + os.getDistro())
         appendLine("\tKernel: ".purple() + OSInfo.osVersion)
         appendLine("\tShell: ".purple() + shell.getShell())
+        appendLine("\tDE: ".purple() + shell.getDEName())
 
         if ("all" in args) {
             appendLine("\tFont: ".purple() + shell.getFontName())
             appendLine("\tCursor: ".purple() + shell.getCursor())
-            appendLine("\tDE: ".purple() + shell.getDEName())
             appendLine("\tWM: ".purple() + shell.getWMName())
             appendLine("\tWM Theme: ".purple() + shell.getWMTheme())
             appendLine("\tGTK Theme: ".purple() + shell.getGTKTheme())
