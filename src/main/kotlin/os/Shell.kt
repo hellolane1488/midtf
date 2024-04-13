@@ -69,37 +69,31 @@ class Shell {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "xrdb -query | awk '/cursor.theme:/ {printf $2} /cursor.size:/ {printf \", \" $2} END {printf \"\\n\"}'"
+            "xrdb -query | awk '/cursor.theme:/ {theme=$2} /cursor.size:/ {size=$2} END {printf \"%s, %s\\n\", theme, size}'"
         ))
     }
 
     fun getGTKTheme(): String {
-        val themeGTK = executeCommand(runtime, arrayOf(
+        return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
             "cat $gtkPath | grep 'gtk-theme-name' | awk -F '=\"' '{print $2 }' | awk -F '\"' '{print $1}'"
         ))
-
-        return themeGTK
     }
 
     fun getGTKIcon(): String {
-        val iconGTK = executeCommand(runtime, arrayOf(
+        return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
             "cat $gtkPath | grep 'gtk-icon-theme-name' | awk -F '=\"' '{print $2 }' | awk -F '\"' '{print $1}'"
         ))
-
-        return iconGTK
     }
 
     fun getDEName(): String {
-        val nameDE = executeCommand(runtime, arrayOf(
+        return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
             "echo \"\$XDG_CURRENT_DESKTOP\""
         ))
-
-        return nameDE
     }
 }

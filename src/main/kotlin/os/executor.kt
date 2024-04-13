@@ -7,9 +7,5 @@ fun executeCommand(runtime: Runtime, command: Array<String>): String {
     /* as a "result" we get the output from the standard stream */
 
     process.waitFor()
-    result.ifEmpty {
-        return "Not found"
-    }
-
     return result
 }

@@ -2,8 +2,6 @@ package mid.vet.os
 
 class OS {
     private val runtime = Runtime.getRuntime()
-    /* initialization by an instance of a class */
-
     fun getArchitecture(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
@@ -17,6 +15,14 @@ class OS {
             "/bin/bash",
             "-c",
             "lsb_release -d | cut -f2-"
+        ))
+    }
+
+    fun getTerminal(): String {
+        return executeCommand(runtime, arrayOf(
+            "/bin/bash",
+            "-c",
+            "xprop -id \$WINDOWID | grep 'WM_CLASS(STRING)' | awk -F '[\",]+' '{print $2}'"
         ))
     }
 

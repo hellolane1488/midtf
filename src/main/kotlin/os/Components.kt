@@ -66,13 +66,11 @@ class Components {
     }
 
     fun getCPUTemperature(): String {
-        val temp = executeCommand(runtime, arrayOf(
+        return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
             "sensors | grep -iE \"^(tctl|core|temp)\" | awk '{print $2}' | head -n 1"
         ))
-
-        return temp
     }
     /* ---CPU--- */
 
