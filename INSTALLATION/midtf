@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # If you don't know what this file is, don't touch it.
-export LANG=C
+export LANG=en_US.UTF-8
 
 detail_arg_handler() {
   if [ -z "$2" ]; then
