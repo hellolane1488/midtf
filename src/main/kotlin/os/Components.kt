@@ -6,7 +6,6 @@ import java.io.Serializable
 
 class Components {
     private val runtime: Runtime = Runtime.getRuntime()
-    /* initialization by an instance of a class */
 
     /* ---CPU--- */
     fun getCPU(): String {
@@ -122,6 +121,14 @@ class Components {
             "xrandr | awk '/\\*/ {print $1}' | perl -pe 's/^\\s+|\\s+\$//g'"
         ))
     }
+
+    fun getGPUmemoryInfo(): String {
+        return executeCommand(runtime, arrayOf(
+            "/bin/bash",
+            "-c",
+            "nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk '{print $1 \" MiB / \" $2 \" MiB\"}' | sed 's/,//'"
+        ))
+    }
     /* ---GPU--- */
 
     /* ---DISK--- */
@@ -170,7 +177,7 @@ class Components {
         val usedMemory = usedMemoryLine?.split(Regex("\\s+"))?.get(2)?.toIntOrNull() ?: 0
         /* get an element that is converted to Integer if all is well */
 
-        return "${usedMemory}MiB / ${totalMemory}MiB"
+        return "$usedMemory MiB / $totalMemory MiB"
     }
     /* ---MEMORY--- */
 }
