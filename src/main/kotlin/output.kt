@@ -3,6 +3,7 @@ package mid.vet
 import mid.vet.extensions.blue
 import mid.vet.extensions.green
 import mid.vet.extensions.purple
+import mid.vet.extensions.tree
 import mid.vet.os.*
 
 fun outputInformation(args: String) {
@@ -33,134 +34,135 @@ fun outputInformation(args: String) {
     val kernelDriverGPU = component.getKernelDriver()
     val kernelModulesGPU = component.getKernelModules()
     val resolution = component.getMonitorResolution()
+    val memoryGPU = component.getGPUmemoryInfo()
     val motherboard = component.getMotherboard()
     val storageUsage = component.getStorageUsage()
     val network = os.getNetwork()
 
-
     val out = buildString {
         appendLine()
-        appendLine("\t" + OSInfo.username.green() + "@" + os.getHostname().green())
-        appendLine("\t${Symbols.DASHES}")
-        appendLine("\tOS: ".purple() + "${OSInfo.osName} ${os.getArchitecture()}")
+        appendLine("\t${OSInfo.username.green()}@${os.getHostname().green()}".tree().purple())
+        appendLine("\t${Symbols.DASHES}".tree().purple())
+        appendLine("├──OS: ".purple() + "${OSInfo.osName} ${os.getArchitecture()}")
 
         if (distro.isNotBlank()) {
-            appendLine("\tDistro: ".purple() + distro)
+            appendLine("├──Distro: ".purple() + distro)
         }
 
-        appendLine("\tKernel: ".purple() + OSInfo.osVersion)
+        appendLine("├──Kernel: ".purple() + OSInfo.osVersion)
 
         if (shellInfo.isNotBlank()) {
-            appendLine("\tShell: ".purple() + shellInfo)
+            appendLine("├──Shell: ".purple() + shellInfo)
         }
 
         if (terminal.isNotBlank()) {
-            appendLine("\tTerminal: ".purple() + terminal)
+            appendLine("├──Terminal: ".purple() + terminal)
         }
 
         if (de.isNotBlank()) {
-            appendLine("\tDE: ".purple() + shell.getDEname())
+            appendLine("├──DE: ".purple() + shell.getDEname())
         }
 
         if ("all" in args) {
             if (font.isNotBlank()) {
-                appendLine("\tFont: ".purple() + font)
+                appendLine("├──Font: ".purple() + font)
             }
 
             if (cursor.isNotBlank()) {
-                appendLine("\tCursor: ".purple() + cursor)
+                appendLine("├──Cursor: ".purple() + cursor)
             }
 
             if (wmName.isNotBlank()) {
-                appendLine("\tWM: ".purple() + wmName)
+                appendLine("├──WM: ".purple() + wmName)
             }
 
             if (wmTheme.isNotBlank()) {
-                appendLine("\tWM Theme: ".purple() + wmTheme)
+                appendLine("├──WM Theme: ".purple() + wmTheme)
             }
 
             if (gtkTheme.isNotBlank()) {
-                appendLine("\tGTK Theme: ".purple() + gtkTheme)
+                appendLine("├──GTK Theme: ".purple() + gtkTheme)
             }
 
             if (gtkIcon.isNotBlank()) {
-                appendLine("\tGTK Icon: ".purple() + gtkIcon)
+                appendLine("├──GTK Icon: ".purple() + gtkIcon)
             }
         }
 
         if (uptime.isNotBlank()) {
-            appendLine("\tMachine Uptime: ".purple() + uptime)
+            appendLine("├──Machine Uptime: ".purple() + uptime)
         }
 
         if (launchTime.isNotBlank()) {
-            appendLine("\tMachine launch in ".purple() + launchTime)
+            appendLine("├──Machine launch in ".purple() + launchTime)
         }
 
-        appendLine("\tCPU: ".purple() + "${component.getCPU()} @ ${component.getCPUfrequency()}")
-        appendLine("\t\tAbout CPU ->".blue())
+        appendLine("├──CPU: ".purple() + "${component.getCPU()} @ ${component.getCPUfrequency()}")
 
         if (scalingMHzCPU.isNotBlank()) {
-            appendLine("\t\t  CPU(s) Scaling MHz: ".blue() + scalingMHzCPU)
+            appendLine("├──CPU(s) Scaling MHz: ".tree().blue() + scalingMHzCPU)
         }
 
         if (maxMHzCPU.isNotBlank()) {
-            appendLine("\t\t  Max MHz: ".blue() + maxMHzCPU)
+            appendLine("├──Max MHz: ".tree().blue() + maxMHzCPU)
         }
 
         if (minMHzCPU.isNotBlank()) {
-            appendLine("\t\t  Min MHz: ".blue() + minMHzCPU)
+            appendLine("├──Min MHz: ".tree().blue() + minMHzCPU)
         }
 
         if (cacheSizeCPU.isNotBlank()) {
-            appendLine("\t\t  Cache Size: ".blue() + cacheSizeCPU)
+            appendLine("├──Cache Size: ".tree().blue() + cacheSizeCPU)
         }
 
         if (virtualizationCPU.isNotBlank()) {
-            appendLine("\t\t  Virtualization: ".blue() + virtualizationCPU)
+            appendLine("├──Virtualization: ".tree().blue() + virtualizationCPU)
         }
 
         if (temperatureCPU.isNotBlank()) {
-            appendLine("\t\t  Temperature: ".blue() + temperatureCPU)
+            appendLine("└──Temperature: ".tree().blue() + temperatureCPU)
         }
 
-        appendLine("\tGPU: ".purple() + component.getGPU())
-        appendLine("\t\tAbout GPU ->".blue())
+        appendLine("├──GPU: ".purple() + component.getGPU())
 
         if (manufacturerGPU.isNotBlank()) {
-            appendLine("\t\t  Manufacturer: ".blue() + manufacturerGPU)
+            appendLine("├──Manufacturer: ".tree().blue() + manufacturerGPU)
         }
 
         if (openGLVersion.isNotBlank()) {
-            appendLine("\t\t  Open GL Version: ".blue() + openGLVersion)
+            appendLine("├──Open GL Version: ".tree().blue() + openGLVersion)
         }
 
         if (kernelDriverGPU.isNotBlank()) {
-            appendLine("\t\t  Kernel driver: ".blue() + kernelDriverGPU)
+            appendLine("├──Kernel driver: ".tree().blue() + kernelDriverGPU)
         }
 
         if (kernelModulesGPU.isNotBlank()) {
-            appendLine("\t\t  Kernel modules: ".blue() + kernelModulesGPU)
+            appendLine("├──Kernel modules: ".tree().blue() + kernelModulesGPU)
         }
 
         if (resolution.isNotBlank()) {
-            appendLine("\t\t  Monitor resolution: ".blue() + resolution)
+            appendLine("└──Monitor resolution: ".tree().blue() + resolution)
         }
 
-        appendLine("\tDisk(s): ".purple() + component.getDisk())
+        appendLine("├──Disk(s): ".purple() + component.getDisk())
 
         if (motherboard.isNotBlank()) {
-            appendLine("\tMotherboard: ".purple() + motherboard)
+            appendLine("├──Motherboard: ".purple() + motherboard)
         }
 
-        appendLine("\tMEM: ".purple() + component.getMemory())
-        appendLine("\t${Symbols.DASHES}")
+        appendLine("├──Memory: ".purple() + component.getMemory())
+        if (memoryGPU.isNotBlank()) {
+            appendLine("├──Memory GPU: ".purple() + component.getGPUmemoryInfo())
+        }
+        appendLine("\t${Symbols.DASHES}".tree().purple())
 
         if (storageUsage.isNotBlank()) {
-            appendLine("\tStorage Usage: ".purple() + "$storageUsage (root)")
+            appendLine("├──Storage Usage: ".purple() + "$storageUsage (root)")
         }
 
         if (network.isNotBlank()) {
-            appendLine("\tNetwork: ".purple() + network)
+            appendLine("└──Network: ".purple() + network)
         }
     }
     println(out)
@@ -168,6 +170,7 @@ fun outputInformation(args: String) {
 
 object Symbols {
     const val DASHES = "------------"
+    const val TREE = "│"
 }
 
 object AnsiColor {
