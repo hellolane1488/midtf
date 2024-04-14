@@ -17,7 +17,7 @@ class Components {
         ))
     }
 
-    fun getCPUFrequency(): String {
+    fun getCPUfrequency(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
@@ -33,7 +33,7 @@ class Components {
         ))
     }
 
-    fun getCPUMaxMHz(): String {
+    fun getCPUmaxMHz(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
@@ -41,7 +41,7 @@ class Components {
         ))
     }
 
-    fun getCPUMinMHz(): String {
+    fun getCPUminMHz(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
@@ -65,7 +65,7 @@ class Components {
         ))
     }
 
-    fun getCPUTemperature(): String {
+    fun getCPUtemperature(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
@@ -83,7 +83,7 @@ class Components {
         ))
     }
 
-    fun getGPUManufacturer(): String {
+    fun getGPUmanufacturer(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
@@ -91,7 +91,7 @@ class Components {
         ))
     }
 
-    fun getOpenGLVersion(): String {
+    fun getOpenGLversion(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",

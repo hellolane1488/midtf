@@ -13,23 +13,23 @@ fun outputInformation(args: String) {
     val distro = os.getDistro()
     val shellInfo = shell.getShell()
     val terminal = os.getTerminal()
-    val de = shell.getDEName()
+    val de = shell.getDEname()
     val font = shell.getFontName()
     val cursor = shell.getCursor()
-    val wmName = shell.getWMName()
-    val wmTheme = shell.getWMTheme()
-    val gtkTheme = shell.getGTKTheme()
-    val gtkIcon = shell.getGTKIcon()
+    val wmName = shell.getWMname()
+    val wmTheme = shell.getWMtheme()
+    val gtkTheme = shell.getGTKtheme()
+    val gtkIcon = shell.getGTKicon()
     val uptime = os.getUptime()
     val launchTime = os.getLaunchTime()
     val scalingMHzCPU = component.getScalingMHz()
-    val maxMHzCPU = component.getCPUMaxMHz()
-    val minMHzCPU = component.getCPUMinMHz()
+    val maxMHzCPU = component.getCPUmaxMHz()
+    val minMHzCPU = component.getCPUminMHz()
     val cacheSizeCPU = component.getCacheSize()
     val virtualizationCPU = component.getVirtualization()
-    val temperatureCPU = component.getCPUTemperature()
-    val manufacturerGPU = component.getGPUManufacturer()
-    val openGLVersion = component.getOpenGLVersion()
+    val temperatureCPU = component.getCPUtemperature()
+    val manufacturerGPU = component.getGPUmanufacturer()
+    val openGLVersion = component.getOpenGLversion()
     val kernelDriverGPU = component.getKernelDriver()
     val kernelModulesGPU = component.getKernelModules()
     val resolution = component.getMonitorResolution()
@@ -59,7 +59,7 @@ fun outputInformation(args: String) {
         }
 
         if (de.isNotBlank()) {
-            appendLine("\tDE: ".purple() + shell.getDEName())
+            appendLine("\tDE: ".purple() + shell.getDEname())
         }
 
         if ("all" in args) {
@@ -96,7 +96,7 @@ fun outputInformation(args: String) {
             appendLine("\tMachine launch in ".purple() + launchTime)
         }
 
-        appendLine("\tCPU: ".purple() + "${component.getCPU()} @ ${component.getCPUFrequency()}")
+        appendLine("\tCPU: ".purple() + "${component.getCPU()} @ ${component.getCPUfrequency()}")
         appendLine("\t\tAbout CPU ->".blue())
 
         if (scalingMHzCPU.isNotBlank()) {
@@ -135,7 +135,7 @@ fun outputInformation(args: String) {
         }
 
         if (kernelDriverGPU.isNotBlank()) {
-            appendLine("\t\t  Open GL Version: ".blue() + kernelDriverGPU)
+            appendLine("\t\t  Kernel driver: ".blue() + kernelDriverGPU)
         }
 
         if (kernelModulesGPU.isNotBlank()) {

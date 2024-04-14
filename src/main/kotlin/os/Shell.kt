@@ -32,11 +32,11 @@ class Shell {
         return "$shellName $shellVersion"
     }
 
-    fun getWMName(): String {
+    fun getWMname(): String {
         return wm
     }
 
-    fun getWMTheme(): String {
+    fun getWMtheme(): String {
         val wmThemeName = when (wm) {
             "xfwm4" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "xfconf-query -c xfwm4 -p /general/theme"))
             "mutter" -> executeCommand(runtime, arrayOf("/bin/bash", "-c", "gsettings get org.gnome.desktop.wm.preferences theme"))
@@ -73,7 +73,7 @@ class Shell {
         ))
     }
 
-    fun getGTKTheme(): String {
+    fun getGTKtheme(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
@@ -81,7 +81,7 @@ class Shell {
         ))
     }
 
-    fun getGTKIcon(): String {
+    fun getGTKicon(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
@@ -89,7 +89,7 @@ class Shell {
         ))
     }
 
-    fun getDEName(): String {
+    fun getDEname(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",

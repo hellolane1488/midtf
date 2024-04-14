@@ -2,6 +2,7 @@ package mid.vet.os
 
 class OS {
     private val runtime = Runtime.getRuntime()
+
     fun getArchitecture(): String {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
