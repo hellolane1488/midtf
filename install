@@ -1,18 +1,17 @@
 #!/bin/bash
 
 # If you don't know what this file is, don't touch it.
-
-sudo rm -rf /usr/share/MIDTF /usr/bin/midtf /usr/share/man/man1/midtf.* ~/MIDTF
+# use this installer if you have problems with Makefile
 
 INSTALLATION/install_dependencies.sh
 INSTALLATION/build.sh
 
-mkdir ~/MIDTF
+mkdir -p ~/MIDTF
 sudo mv ~/MIDTF /usr/share
 
-sudo cp build/libs/*.jar /usr/share/MIDTF
-sudo cp INSTALLATION/midtf /usr/bin/
-sudo cp INSTALLATION/midtf.1 /usr/share/man/man1/
+sudo cp -r build/libs/*.jar /usr/share/MIDTF
+sudo cp -r INSTALLATION/midtf /usr/bin/
+sudo cp -r INSTALLATION/midtf.1 /usr/share/man/man1/
 
 sudo gzip /usr/share/man/man1/midtf.1
 

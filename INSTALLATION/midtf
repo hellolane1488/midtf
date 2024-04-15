@@ -3,7 +3,8 @@
 # If you don't know what this file is, don't touch it.
 export LANG=en_US.UTF-8
 
-JAR_PATH="/usr/share/MIDTF/*.jar"
+# shellcheck disable=SC2125
+JAR_PATH=/usr/share/MIDTF/MidT-1.0-SNAPSHOT.jar
 
 detail_arg_handler() {
   if [ -z "$2" ]; then
@@ -16,8 +17,8 @@ detail_arg_handler() {
 case $1 in
   "-h"|"--help") echo Run: "man midtf" ;;
   "-rm"|"--uninstall")
-    sudo rm -rf /usr/share/MIDTF /usr/bin/midtf 2>/dev/null
-
+    echo I\'m self-destructing...
+    sudo rm -rf /usr/share/MIDTF /usr/bin/midtf /usr/share/man/man1/midtf.1* 2>/dev/null
     # shellcheck disable=SC2181
     if [ $? -eq 0 ]; then
       echo midtf uninstalled successfully
