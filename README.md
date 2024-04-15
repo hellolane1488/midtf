@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-<img src="https://i.imgur.com/ileuc3v.png" align="center" height="525px" width="500px" alt="midtf">
+<img src="https://i.imgur.com/XOzy9EL.png" align="center" height="550px" width="450px" alt="midtf">
 
 <strong>midtf</strong> is a command line tool written in the `Kotlin` programming language.
 The tool will allow you to find out the necessary information about the operating system, components and even the name of the mouse cursor.
@@ -14,10 +14,15 @@ The tool will allow you to find out the necessary information about the operatin
 ```shell
 # cloning repo
 $ git clone https://github.com/midvetb/midtf.git
-# go to the repo and install
-$ cd midtf && ./install
+# with Makefile (recommended)
+$ cd midtf && make -B install
 # auxiliary function
 $ midtf --help
+```
+if you have any problems building with make, try using the installation script
+```shell
+# with install script
+$ cd midtf && ./install
 ```
 # Uninstall:
 ```shell
