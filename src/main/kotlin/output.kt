@@ -11,6 +11,16 @@ fun outputInformation(args: String) {
     val component = Components()
     val shell = Shell()
 
+    val collection = arrayOf(OSInfo.username, os::getHostname)
+    val size: Int = collection.sumOf { item ->
+        when (item) {
+            is String -> item.length
+            is Function0<*> -> (item as? Function0<String>)?.invoke()?.length ?: 0
+            else -> 12
+        }
+    }
+    val dashes = Symbols.DASH.repeat(size + 1)
+
     val distro = os.getDistro()
     val shellInfo = shell.getShell()
     val terminal = os.getTerminal()
@@ -41,8 +51,8 @@ fun outputInformation(args: String) {
 
     val out = buildString {
         appendLine()
-        appendLine("\t${OSInfo.username.green()}@${os.getHostname().green()}".tree().purple())
-        appendLine("\t${Symbols.DASHES}".tree().purple())
+        appendLine("${OSInfo.username.green()}@${os.getHostname().green()}".tree().purple())
+        appendLine(dashes.tree().purple())
         appendLine("├──OS: ".purple() + "${OSInfo.osName} ${os.getArchitecture()}")
 
         if (distro.isNotBlank()) {
@@ -155,7 +165,8 @@ fun outputInformation(args: String) {
         if (memoryGPU.isNotBlank()) {
             appendLine("├──Memory GPU: ".purple() + component.getGPUmemoryInfo())
         }
-        appendLine("\t${Symbols.DASHES}".tree().purple())
+
+        appendLine(dashes.tree().purple())
 
         if (storageUsage.isNotBlank()) {
             appendLine("├──Storage Usage: ".purple() + "$storageUsage (root)")
@@ -169,7 +180,7 @@ fun outputInformation(args: String) {
 }
 
 object Symbols {
-    const val DASHES = "------------"
+    const val DASH = "-"
     const val TREE = "│"
 }
 

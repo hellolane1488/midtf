@@ -162,7 +162,11 @@ class Components {
 
     /* ---MEMORY--- */
     fun getMemory(): Serializable {
-        val process = runtime.exec("free -m")
+        val process = runtime.exec(arrayOf(
+            "/bin/bash",
+            "-c",
+            "free -m"
+        ))
 
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         /* in "reader" let's get not a list, but the entire string */

@@ -3,6 +3,8 @@
 # If you don't know what this file is, don't touch it.
 export LANG=en_US.UTF-8
 
+JAR_PATH="/usr/share/MIDTF/*.jar"
+
 detail_arg_handler() {
   if [ -z "$2" ]; then
     echo "Error: Missing argument for option -d"
@@ -14,21 +16,49 @@ detail_arg_handler() {
 case $1 in
   "-h"|"--help") echo Run: "man midtf" ;;
   "-rm"|"--uninstall")
-    sudo rm -rf /usr/share/MIDTF
-    sudo rm -rf /usr/bin/midtf
-    echo midtf uninstalled successfully
-    exit 1
+    sudo rm -rf /usr/share/MIDTF /usr/bin/midtf 2>/dev/null
+
+    # shellcheck disable=SC2181
+    if [ $? -eq 0 ]; then
+      echo midtf uninstalled successfully
+    else
+      echo Error: failed to uninstall midtf
+      exit 1
+    fi
+    exit $?
     ;;
   "-d"|"--detail")
     detail_arg_handler "$@"
-    java -jar /usr/share/MIDTF/*.jar | grep -i $2 | head -n 1
-    exit 1
+    if [ -z "$(ls -A "$JAR_PATH" 2>/dev/null)" ]; then
+      echo "Error: .jar is not found"
+      exit 1
+    fi
+    java -jar "$JAR_PATH" | grep -i "$2" | head -n 1
+    exit $?
     ;;
-  "-a"|"--all") java -jar /usr/share/MIDTF/*.jar "--all"; exit 1 ;;
+  "-a"|"--all")
+    if [ -z "$(ls -A "$JAR_PATH" 2>/dev/null)" ]; then
+          echo "Error: .jar is not found"
+          exit 1
+    fi
+    java -jar "$JAR_PATH" "--all"
+    exit $?
+    ;;
   "-da"|"-ad")
     detail_arg_handler "$@"
-    java -jar /usr/share/MIDTF/*.jar "--all" | grep -i $2 | head -n 1
-    exit 1
+    if [ -z "$(ls -A "$JAR_PATH" 2>/dev/null)" ]; then
+          echo "Error: .jar is not found"
+          exit 1
+    fi
+    java -jar "$JAR_PATH" "--all" | grep -i "$2" | head -n 1
+    exit $?
     ;;
-  *) java -jar /usr/share/MIDTF/*.jar; exit 1 ;;
+  *)
+    if [ -z "$(ls -A "$JAR_PATH" 2>/dev/null)" ]; then
+          echo "Error: .jar is not found"
+          exit 1
+    fi
+    java -jar "$JAR_PATH"
+    exit $?
+    ;;
 esac
