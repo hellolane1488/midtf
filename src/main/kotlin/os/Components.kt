@@ -123,11 +123,19 @@ class Components {
     }
 
     fun getGPUmemoryInfo(): String {
-        return executeCommand(runtime, arrayOf(
+        val nMem = executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
             "nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk '{print $1 \" MiB / \" $2 \" MiB\"}' | sed 's/,//'"
         ))
+
+        val regex = Regex("has")
+        return if (!regex.containsMatchIn(nMem)) {
+            nMem
+        } else {
+            ""
+        }
+        // мне лень пока что для других видюх делать извините
     }
     /* ---GPU--- */
 
