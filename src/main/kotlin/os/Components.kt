@@ -118,7 +118,7 @@ class Components {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "xrandr | awk '/\\*/ {print $1}' | perl -pe 's/^\\s+|\\s+\$//g'"
+            "xrandr | awk '/\\*/ {print $1}' | perl -pe 's/^\\s+|\\s+$//g'"
         ))
     }
 
@@ -129,13 +129,11 @@ class Components {
             "nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk '{print $1 \" MiB / \" $2 \" MiB\"}' | sed 's/,//'"
         ))
 
-        val regex = Regex("has")
-        return if (!regex.containsMatchIn(nMem)) {
+        return if (!nMem.contains("has")) {
             nMem
         } else {
             ""
         }
-        // мне лень пока что для других видюх делать извините
     }
     /* ---GPU--- */
 
