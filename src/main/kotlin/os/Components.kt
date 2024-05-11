@@ -118,25 +118,11 @@ class Components {
         return executeCommand(runtime, arrayOf(
             "/bin/bash",
             "-c",
-            "xrandr | awk '/\\*/ {print $1}' | perl -pe 's/^\\s+|\\s+$//g'"
+            "xrandr | awk '/\\*/ {print $1}'"
         ))
     }
 
     fun getGPUmemoryInfo(): String {
-//        val totalMemory = runtime.exec(arrayOf(
-//            "/bin/bash",
-//            "-c",
-//            "glxinfo | grep \"Total available memory:\" | awk '{print $4}'"
-//        ))
-//        val currentlyAvailableMemory = runtime.exec(arrayOf(
-//            "/bin/bash",
-//            "-c",
-//            "glxinfo | grep \"Currently available dedicated video memory:\" | awk '{print $6}'"
-//        ))
-//
-//        val usedMemory = totalMemory - currentlyAvailableMemory
-//
-//        return "$usedMemory MiB / $totalMemory MiB"
         val process = Runtime.getRuntime().exec(arrayOf(
             "/bin/bash",
             "-c",
