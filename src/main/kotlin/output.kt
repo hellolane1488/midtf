@@ -73,7 +73,7 @@ fun outputInformation(args: String) {
         appendIfNotBlank("├──Min MHz: ".tree().blue(), minMHzCPU)
         appendIfNotBlank("├──Cache Size: ".tree().blue(), cacheSizeCPU)
         appendIfNotBlank("├──Virtualization: ".tree().blue(), virtualizationCPU)
-        appendIfNotBlank("└──Temperature: ".tree().blue(), temperatureCPU)
+        appendIfNotBlank("╰──Temperature: ".tree().blue(), temperatureCPU)
 
         appendLine("├──GPU: ".purple() + component.getGPU())
 
@@ -81,7 +81,7 @@ fun outputInformation(args: String) {
         appendIfNotBlank("├──Open GL Version: ".tree().blue(), openGLVersion)
         appendIfNotBlank("├──Kernel driver: ".tree().blue(), kernelDriverGPU)
         appendIfNotBlank("├──Kernel modules: ".tree().blue(), kernelModulesGPU)
-        appendIfNotBlank("└──Monitor resolution: ".tree().blue(), resolution)
+        appendIfNotBlank("╰──Monitor resolution: ".tree().blue(), resolution)
 
         appendLine("├──Disk(s): ".purple() + disk)
 
@@ -94,7 +94,7 @@ fun outputInformation(args: String) {
         appendLine(dashes.tree().purple())
 
         appendIfNotBlank("├──Storage Usage: ".purple(), "$storageUsage (root)")
-        appendIfNotBlank("└──Network: ".purple(), network)
+        appendIfNotBlank("╰──Network: ".purple(), network)
     }
     println(out)
 }
