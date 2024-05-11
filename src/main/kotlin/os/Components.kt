@@ -123,17 +123,41 @@ class Components {
     }
 
     fun getGPUmemoryInfo(): String {
-        val nMem = executeCommand(runtime, arrayOf(
+//        val totalMemory = runtime.exec(arrayOf(
+//            "/bin/bash",
+//            "-c",
+//            "glxinfo | grep \"Total available memory:\" | awk '{print $4}'"
+//        ))
+//        val currentlyAvailableMemory = runtime.exec(arrayOf(
+//            "/bin/bash",
+//            "-c",
+//            "glxinfo | grep \"Currently available dedicated video memory:\" | awk '{print $6}'"
+//        ))
+//
+//        val usedMemory = totalMemory - currentlyAvailableMemory
+//
+//        return "$usedMemory MiB / $totalMemory MiB"
+        val process = Runtime.getRuntime().exec(arrayOf(
             "/bin/bash",
             "-c",
-            "nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk '{print $1 \" MiB / \" $2 \" MiB\"}' | sed 's/,//'"
+            "glxinfo | grep -E 'Total available memory:|Currently available dedicated video memory:'"
         ))
 
-        return if (!nMem.contains("has")) {
-            nMem
-        } else {
-            ""
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
+        var totalMemory: Int? = null
+        var currentlyAvailableMemory: Int? = null
+        var line: String?
+
+        while (reader.readLine().also { line = it } != null) {
+            when {
+                line!!.contains("Total available memory:") -> totalMemory = line!!.trim().split(" ")[3].toIntOrNull()
+                line!!.contains("Currently available dedicated video memory:") -> currentlyAvailableMemory = line!!.trim().split(" ")[5].toIntOrNull()
+            }
         }
+
+        val usedMemory = if (totalMemory != null && currentlyAvailableMemory != null) totalMemory - currentlyAvailableMemory else 0
+
+        return "$usedMemory MiB / $totalMemory MiB"
     }
     /* ---GPU--- */
 
